@@ -60,7 +60,7 @@ Customer churn is a critical metric for subscription businesses. Acquiring a new
 
 | Logistic Regression | 0.798 | 0.842 |
 
-| Random Forest | TBD | TBD |
+| Random Forest | | Random Forest | 0.789 | 0.822 | | | Random Forest | 0.789 | 0.822 | |
 
 | \*\*XGBoost (tuned)\*\* | \*\*0.803\*\* | \*\*0.846\*\* |
 
