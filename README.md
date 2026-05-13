@@ -1,150 +1,73 @@
-\# Customer Churn Prediction (Telecom)
+# Customer Churn Prediction (Telecom)
 
+A machine learning project that predicts which telecom customers are likely to cancel their subscription, and identifies the key reasons behind churn.
 
+## Why This Project
 
-End-to-end machine learning project that predicts subscriber churn for a telecom customer base, identifies key churn drivers, and translates findings into actionable retention strategies.
+Retaining a customer is far cheaper than acquiring a new one. If a business can identify at-risk customers before they leave, it can target them with retention offers. The goal of this project is to build a model that flags those customers early.
 
+## Dataset
 
+- Source: IBM Telco Customer Churn (from Kaggle)
+- Size: 7,043 customers
+- Features: 20 columns including demographics, services used, contract type, and billing
+- Target: Whether the customer churned (Yes/No)
+- Churn rate in the data: 26.5%
 
-\## Business Context
+## What I Did
 
+1. Cleaned the data: converted TotalCharges to numeric, filled 11 missing values with the median, removed the customer ID column
+2. Explored the data: looked at how churn varies by contract type, tenure, and monthly charges
+3. Created new features: bucketed tenure into groups (New, Early, Established, Loyal) and one-hot encoded categorical columns
+4. Trained three models: Logistic Regression, Random Forest, and XGBoost
+5. Tuned XGBoost using GridSearchCV with 5-fold cross-validation across 12 parameter combinations
+6. Evaluated using ROC-AUC, accuracy, precision, recall, and confusion matrix
+7. Looked at feature importance to understand what drives churn
 
-
-Customer churn is a critical metric for subscription businesses. Acquiring a new customer typically costs 5-7x more than retaining one. This project builds a predictive model to identify at-risk customers before they cancel, enabling proactive retention campaigns and targeted winback offers.
-
-
-
-\## Dataset
-
-
-
-\- \*\*Source:\*\* IBM Telco Customer Churn (via Kaggle)
-
-\- \*\*Records:\*\* 7,043 customers
-
-\- \*\*Features:\*\* 20 (demographics, services, contract info, charges)
-
-\- \*\*Target:\*\* Churn (Yes/No)
-
-\- \*\*Class Distribution:\*\* 26.5% churn rate (imbalanced)
-
-
-
-\## Approach
-
-
-
-1\. \*\*Data Cleaning\*\* — Converted TotalCharges from string to numeric, handled 11 missing values with median imputation, dropped customerID
-
-2\. \*\*Exploratory Data Analysis (EDA)\*\* — Visualized churn patterns by contract type, tenure, and monthly charges
-
-3\. \*\*Feature Engineering\*\* — Created tenure buckets (New / Early / Established / Loyal), one-hot encoded all categorical variables
-
-4\. \*\*Model Training \& Comparison\*\* — Trained Logistic Regression, Random Forest, and XGBoost models
-
-5\. \*\*Hyperparameter Tuning\*\* — Used GridSearchCV with 5-fold cross-validation on XGBoost across 12 parameter combinations
-
-6\. \*\*Evaluation\*\* — ROC-AUC, accuracy, precision, recall, confusion matrix
-
-7\. \*\*Feature Importance Analysis\*\* — Identified top churn drivers for business interpretation
-
-
-
-\## Results
-
-
+## Results
 
 | Model | Accuracy | ROC-AUC |
-
 |-------|----------|---------|
-
 | Logistic Regression | 0.798 | 0.842 |
+| Random Forest | 0.789 | 0.822 |
+| XGBoost (tuned) | 0.803 | 0.846 |
 
-| Random Forest | | Random Forest | 0.789 | 0.822 | | | Random Forest | 0.789 | 0.822 | |
+Best XGBoost parameters: learning_rate=0.1, max_depth=3, n_estimators=100
 
-| \*\*XGBoost (tuned)\*\* | \*\*0.803\*\* | \*\*0.846\*\* |
+## Charts
 
+### Top 10 Features Driving Churn
+![Feature Importance](images/feature_importance.png)
 
+### Confusion Matrix (XGBoost)
+![Confusion Matrix](images/confusion_matrix.png)
 
-\*\*Best XGBoost Parameters:\*\*
+### Churn by Contract Type
+![Churn by Contract](images/churn_by_contract.png)
 
-\- learning\_rate: 0.1
+## What I Learned From the Data
 
-\- max\_depth: 3
+- Month-to-month customers cancel a lot more than customers on 1-year or 2-year contracts
+- New customers (under 12 months) are the most likely to leave
+- Customers with higher monthly charges churn more
+- Fiber optic customers churn more than DSL customers
+- Customers without add-ons like online security and tech support cancel more often
 
-\- n\_estimators: 100
+## Business Suggestions
 
+1. Offer discounts to move month-to-month customers onto annual plans
+2. Build a better onboarding experience for new customers in their first year
+3. Look into why fiber optic customers are leaving (could be quality or pricing)
+4. Bundle add-on services to give customers more reasons to stay
 
+## Tools Used
 
-\## Visualizations
+- Python 3.11
+- pandas, NumPy
+- scikit-learn
+- XGBoost
+- matplotlib, seaborn
 
+## How to Run
 
-
-\### Top 10 Features Driving Churn
-
-!\[Feature Importance](images/feature\_importance.png)
-
-
-
-\### Confusion Matrix (XGBoost)
-
-!\[Confusion Matrix](images/confusion\_matrix.png)
-
-
-
-\### Churn by Contract Type
-
-!\[Churn by Contract](images/churn\_by\_contract.png)
-
-
-
-\## Key Insights
-
-
-
-\- \*\*Month-to-month contracts\*\* drive the highest churn — customers on these plans cancel significantly more often than those on 1-year or 2-year contracts
-
-\- \*\*Tenure\*\* is a strong predictor — new customers in their first 12 months are at highest risk
-
-\- \*\*Higher monthly charges\*\* correlate with higher churn rates
-
-\- \*\*Fiber optic\*\* customers churn at a higher rate than DSL — suggests potential service quality or pricing issues
-
-\- \*\*Customers without add-on services\*\* (online security, tech support) churn more frequently
-
-
-
-\## Business Recommendations
-
-
-
-1\. \*\*Incentivize annual contracts\*\* — Offer discounts to convert month-to-month customers to 1-year or 2-year plans
-
-2\. \*\*Strengthen new customer onboarding\*\* — Build a structured 12-month onboarding journey to reduce early churn
-
-3\. \*\*Audit fiber optic service\*\* — Investigate service quality and pricing competitiveness
-
-4\. \*\*Promote add-on services\*\* — Bundle online security and tech support to increase retention and value perception
-
-
-
-\## Tech Stack
-
-
-
-\- \*\*Python 3.11\*\*
-
-\- \*\*pandas, NumPy\*\* — Data manipulation
-
-\- \*\*scikit-learn\*\* — ML pipeline, model training, evaluation, GridSearchCV
-
-\- \*\*XGBoost\*\* — Gradient boosting classifier
-
-\- \*\*matplotlib, seaborn\*\* — Visualization
-
-
-
-\## How to Run
-
-
-
+Install the dependencies and open the notebook:
